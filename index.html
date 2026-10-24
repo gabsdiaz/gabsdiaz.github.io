@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabriela · Matemáticas</title>
+<meta name="description" content="Portafolio de Gabriela, estudiante de Matemáticas en la Universidad Nacional de Colombia. Geometría, grupos de Lie, topología y física matemática.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --bg: #f6f1ea;
+    --paper: #fbf8f3;
+    --ink: #2a211c;
+    --muted: #75685e;
+    --line: #ddd2c4;
+    --accent: #a8475f;
+    --accent-soft: #e9cfd3;
+    --flow: rgba(168, 71, 95, 0.55);
+    --flow-dim: rgba(117, 104, 94, 0.22);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1614;
+      --paper: #231d1a;
+      --ink: #efe6dc;
+      --muted: #a8998c;
+      --line: #3a302b;
+      --accent: #e08aa0;
+      --accent-soft: #4a2c34;
+      --flow: rgba(224, 138, 160, 0.6);
+      --flow-dim: rgba(168, 153, 140, 0.18);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1614;
+    --paper: #231d1a;
+    --ink: #efe6dc;
+    --muted: #a8998c;
+    --line: #3a302b;
+    --accent: #e08aa0;
+    --accent-soft: #4a2c34;
+    --flow: rgba(224, 138, 160, 0.6);
+    --flow-dim: rgba(168, 153, 140, 0.18);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; height: 56px; gap: 12px; }
+  nav .mark { font-family: "Fraunces", serif; font-style: italic; font-size: 20px; color: var(--ink); text-decoration: none; }
+  nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; font-size: 14px; }
+  nav ul a { color: var(--muted); text-decoration: none; }
+  nav ul a:hover { color: var(--accent); }
+  #theme { background: none; border: 1px solid var(--line); color: var(--muted); border-radius: 999px; width: 32px; height: 32px; cursor: pointer; font-size: 14px; flex-shrink: 0; }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  /* hero */
+  header.hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; border-bottom: 1px solid var(--line); }
+  #phase { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .hero .wrap { position: relative; width: 100%; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+  h1 { font-family: "Fraunces", serif; font-weight: 300; font-size: clamp(52px, 11vw, 120px); line-height: .95; margin: 14px 0 22px; letter-spacing: -.02em; }
+  h1 em { font-weight: 300; color: var(--accent); }
+  .lede { max-width: 540px; font-size: 19px; color: var(--muted); }
+  .lede strong { color: var(--ink); font-weight: 500; }
+  .caption { position: absolute; right: 16px; bottom: 18px; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); text-align: right; max-width: 300px; }
+
+  /* sections */
+  section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+  .sec-head { display: grid; grid-template-columns: 180px 1fr; gap: 24px; margin-bottom: 40px; align-items: baseline; }
+  .sec-num { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); }
+  h2 { font-family: "Fraunces", serif; font-weight: 300; font-size: clamp(34px, 5vw, 48px); margin: 0; line-height: 1.1; }
+  .body { margin-left: 204px; }
+  @media (max-width: 760px) {
+    .sec-head { grid-template-columns: 1fr; gap: 6px; }
+    .body { margin-left: 0; }
+    section { padding: 64px 0; }
+  }
+  p { margin: 0 0 1.1em; max-width: 640px; }
+
+  /* interests grid */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .cell { background: var(--paper); padding: 26px 22px; }
+  .cell .sym { font-family: "Fraunces", serif; font-size: 34px; color: var(--accent); line-height: 1; height: 44px; }
+  .cell h3 { font-family: "Fraunces", serif; font-weight: 500; font-size: 20px; margin: 14px 0 6px; }
+  .cell p { font-size: 15px; color: var(--muted); margin: 0; }
+
+  /* research */
+  .feature { background: var(--paper); border: 1px solid var(--line); padding: 32px; margin-bottom: 20px; }
+  .feature .tag { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent); text-transform: uppercase; letter-spacing: .06em; }
+  .feature h3 { font-family: "Fraunces", serif; font-weight: 400; font-size: 26px; margin: 8px 0 12px; line-height: 1.2; }
+  .eq { overflow-x: auto; padding: 14px 0 4px; color: var(--ink); }
+
+  /* projects */
+  .proj { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--line); }
+  .proj:last-child { border-bottom: 1px solid var(--line); }
+  .proj .yr { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); padding-top: 4px; }
+  .proj h3 { font-family: "Fraunces", serif; font-weight: 500; font-size: 21px; margin: 0 0 4px; }
+  .proj p { font-size: 15.5px; color: var(--muted); margin: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; color: var(--muted); }
+  @media (max-width: 520px) { .proj { grid-template-columns: 1fr; gap: 4px; } }
+
+  /* knot */
+  .knotrow { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+  .knot { width: 150px; height: 150px; flex-shrink: 0; }
+  .knot path { fill: none; stroke: var(--accent); stroke-width: 7; stroke-linecap: round; }
+  .knot path.gap { stroke: var(--paper); stroke-width: 15; }
+
+  /* languages */
+  .langs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .lang { border: 1px solid var(--line); background: var(--paper); padding: 22px; }
+  .lang .hello { font-family: "Fraunces", serif; font-style: italic; font-size: 28px; color: var(--accent); }
+  .lang .nm { font-size: 15px; font-weight: 500; margin-top: 6px; }
+  .lang .lvl { font-size: 14px; color: var(--muted); }
+  @media (max-width: 640px) { .langs { grid-template-columns: 1fr; } }
+
+  /* contact */
+  .contact h2 { font-size: clamp(38px, 7vw, 68px); }
+  .links { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 18px; font-family: "IBM Plex Mono", monospace; font-size: 15px; }
+  footer { padding: 32px 0 48px; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="mark" href="#">Gabriela</a>
+    <ul>
+      <li><a href="#sobre">Sobre mí</a></li>
+      <li><a href="#intereses">Intereses</a></li>
+      <li><a href="#investigacion">Investigación</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button id="theme" aria-label="Cambiar tema">◐</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <canvas id="phase" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow">Matemáticas · UNAL Bogotá</div>
+    <h1>Gabriela<br><em>en el espacio de fases</em></h1>
+    <p class="lede">Estudiante de Matemáticas en la <strong>Universidad Nacional de Colombia</strong>. Me interesa dónde se cruzan la <strong>geometría diferencial</strong>, la <strong>teoría de Lie</strong>, la <strong>topología</strong> y la <strong>física</strong>.</p>
+  </div>
+  <div class="caption">Fondo: órbitas del péndulo simple integradas con Störmer–Verlet, un método simpléctico.</div>
+</header>
+
+<main>
+<section id="sobre">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">01</div><h2>Sobre mí</h2></div>
+    <div class="body reveal">
+      <p>Estudio Matemáticas en el Departamento de Matemáticas de la Universidad Nacional de Colombia, en Bogotá. Hago parte de un grupo de investigación sobre <strong>integradores simplécticos</strong>: métodos numéricos que respetan la geometría de los sistemas hamiltonianos.</p>
+      <p>Mi meta a largo plazo es hacer una maestría y un doctorado en <strong>física matemática en Alemania</strong>. En 2025 estuve en Múnich como becaria del <strong>DAAD</strong>.</p>
+      <p>Financio mis estudios dando clases particulares de español, inglés y alemán, y estoy construyendo un portafolio de programación con miras a trabajar también en inteligencia artificial y aprendizaje automático.</p>
+    </div>
+  </div>
+</section>
+
+<section id="intereses">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">02</div><h2>Lo que me mueve</h2></div>
+    <div class="grid reveal">
+      <div class="cell"><div class="sym">∇</div><h3>Geometría diferencial</h3><p>Variedades, conexiones y fibrados: el lenguaje de la física moderna.</p></div>
+      <div class="cell"><div class="sym">𝔤</div><h3>Grupos y álgebras de Lie</h3><p>Simetrías continuas, de SO(3) a SE(3), y su uso en mecánica.</p></div>
+      <div class="cell"><div class="sym">π₁</div><h3>Topología</h3><p>Homología, espacios cociente y teoría de nudos.</p></div>
+      <div class="cell"><div class="sym">ω</div><h3>Mecánica geométrica</h3><p>Formalismo hamiltoniano, transformaciones canónicas y Hamilton–Jacobi.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="investigacion">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">03</div><h2>Investigación</h2></div>
+    <div class="body">
+      <div class="feature reveal">
+        <div class="tag">Póster · ECOGyT</div>
+        <h3>Mapas de retracción y discretización simétrica en grupos de Lie</h3>
+        <p>Cuando un sistema evoluciona sobre un grupo de Lie \(G\), un integrador ingenuo se sale del grupo. Los mapas de retracción \(\mathcal{R}:\mathfrak{g}\to G\) —como la exponencial o la transformada de Cayley— permiten avanzar en el álgebra y volver a \(G\) sin perder estructura.</p>
+        <div class="eq">$$ g_{k+1} = g_k\,\mathcal{R}(h\,\xi_k), \qquad \mathcal{R}(\xi)=\Big(I-\tfrac{\xi}{2}\Big)^{-1}\Big(I+\tfrac{\xi}{2}\Big) $$</div>
+      </div>
+      <div class="feature reveal">
+        <div class="tag">Grupo de investigación</div>
+        <h3>Integradores simplécticos</h3>
+        <p>Un integrador simpléctico preserva la forma \(\omega = dq\wedge dp\), y por eso conserva la energía casi exactamente durante tiempos muy largos. Es la animación del fondo de esta página: cada órbita se cierra sobre sí misma en lugar de alejarse en espiral.</p>
+        <div class="eq">$$ p_{n+\frac12} = p_n - \tfrac{h}{2}\,\nabla V(q_n),\quad q_{n+1} = q_n + h\,p_{n+\frac12},\quad p_{n+1} = p_{n+\frac12} - \tfrac{h}{2}\,\nabla V(q_{n+1}) $$</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">04</div><h2>Proyectos</h2></div>
+    <div class="body">
+      <div class="proj reveal">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Diagramas de nudos en SVG</h3>
+          <div class="knotrow">
+            <svg class="knot" viewBox="-100 -100 200 200" aria-label="Nudo trébol">
+              <path id="trefoil" d=""/>
+            </svg>
+            <p style="flex:1;min-width:200px">Diagramas vectoriales de nudos —trébol, cinquefoil—, diagramas de arcos y de retícula, generados por código para usarlos en clase y en notas de topología.</p>
+          </div>
+          <div class="chips"><span class="chip">SVG</span><span class="chip">teoría de nudos</span></div>
+        </div>
+      </div>
+      <div class="proj reveal">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Simulación interactiva del problema de Monty Hall</h3>
+          <p>Una simulación para una presentación de probabilidad: juega cientos de rondas y observa cómo la frecuencia de victoria al cambiar de puerta converge a 2/3.</p>
+          <div class="chips"><span class="chip">JavaScript</span><span class="chip">probabilidad</span></div>
+        </div>
+      </div>
+      <div class="proj reveal">
+        <div class="yr">2026</div>
+        <div>
+          <h3>Póster académico en LaTeX</h3>
+          <p>Diseño y composición del póster para ECOGyT con tikzposter y entornos tcolorbox personalizados.</p>
+          <div class="chips"><span class="chip">LaTeX</span><span class="chip">TikZ</span></div>
+        </div>
+      </div>
+      <div class="proj reveal">
+        <div class="yr">en diseño</div>
+        <div>
+          <h3>Plataforma de preparación de exámenes</h3>
+          <p>Concepto de una plataforma con práctica adaptativa, tarjetas de memoria y tutoría con IA para IELTS, TestDaF, SAT y GRE.</p>
+          <div class="chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">Next.js</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="idiomas">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">05</div><h2>Idiomas y tutorías</h2></div>
+    <div class="body">
+      <p class="reveal">Doy clases particulares en los tres idiomas en los que trabajo.</p>
+      <div class="langs reveal">
+        <div class="lang"><div class="hello">Hola</div><div class="nm">Español</div><div class="lvl">Lengua materna</div></div>
+        <div class="lang"><div class="hello">Hello</div><div class="nm">Inglés</div><div class="lvl">Avanzado</div></div>
+        <div class="lang"><div class="hello">Hallo</div><div class="nm">Alemán</div><div class="lvl">Avanzado · DAAD Múnich 2025</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <div class="wrap">
+    <div class="sec-head reveal"><div class="sec-num">06</div><h2>Hablemos</h2></div>
+    <div class="body reveal">
+      <p>Si quieres conversar sobre geometría, física matemática, clases o colaboraciones, escríbeme.</p>
+      <div class="links">
+        <a href="https://github.com/USUARIO" id="gh">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Gabriela</span>
+    <span>\(\mathrm{d}\omega = 0\)</span>
+  </div>
+</footer>
+
+<script>
+/* ---------- theme toggle ---------- */
+(function () {
+  const root = document.documentElement;
+  let saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  if (saved) root.setAttribute('data-theme', saved);
+  document.getElementById('theme').addEventListener('click', () => {
+    const dark = root.getAttribute('data-theme')
+      ? root.getAttribute('data-theme') === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+    const next = dark ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+  });
+})();
+
+/* ---------- KaTeX ---------- */
+window.addEventListener('DOMContentLoaded', () => {
+  const go = () => {
+    if (window.renderMathInElement) {
+      renderMathInElement(document.body, {
+        delimiters: [{ left: '$$', right: '$$', display: true }, { left: '\\(', right: '\\)', display: false }]
+      });
+    } else setTimeout(go, 50);
+  };
+  go();
+});
+
+/* ---------- trefoil knot ---------- */
+(function () {
+  const pts = [];
+  for (let i = 0; i <= 360; i++) {
+    const t = i / 360 * 2 * Math.PI;
+    const x = Math.sin(t) + 2 * Math.sin(2 * t);
+    const y = Math.cos(t) - 2 * Math.cos(2 * t);
+    pts.push([x * 27, y * 27]);
+  }
+  const svg = document.querySelector('.knot');
+  const seg = (a, b) => 'M' + pts.slice(a, b + 1).map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
+  document.getElementById('trefoil').setAttribute('d', seg(0, 360));
+  // over-crossings: redraw short arcs with a background "gap" underneath
+  [[8, 23], [128, 143], [248, 263]].forEach(([a, b]) => {
+    const ns = 'http://www.w3.org/2000/svg';
+    const g = document.createElementNS(ns, 'path'); g.setAttribute('class', 'gap'); g.setAttribute('d', seg(a, b));
+    const o = document.createElementNS(ns, 'path'); o.setAttribute('d', seg(a - 4, b + 4));
+    svg.appendChild(g); svg.appendChild(o);
+  });
+})();
+
+/* ---------- phase portrait: pendulum with Störmer–Verlet ---------- */
+(function () {
+  const c = document.getElementById('phase');
+  const ctx = c.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, dpr, particles;
+
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+  function init() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = c.clientWidth; H = c.clientHeight;
+    c.width = W * dpr; c.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    particles = [];
+    const n = W < 640 ? 70 : 140;
+    for (let i = 0; i < n; i++) {
+      // sample initial energies, inside and outside the separatrix
+      const q = (Math.random() * 2 - 1) * Math.PI;
+      const p = (Math.random() * 2 - 1) * 2.8;
+      particles.push({ q, p, trail: [] });
+    }
+    ctx.clearRect(0, 0, W, H);
+  }
+
+  const h = 0.03;
+  const dV = q => Math.sin(q); // V(q) = -cos q
+  function step(s) {
+    const ph = s.p - 0.5 * h * dV(s.q);
+    s.q = s.q + h * ph;
+    s.p = ph - 0.5 * h * dV(s.q);
+    if (s.q > Math.PI) { s.q -= 2 * Math.PI; s.trail = []; }
+    if (s.q < -Math.PI) { s.q += 2 * Math.PI; s.trail = []; }
+  }
+
+  function toXY(q, p) {
+    const sx = W / (2 * Math.PI) * 1.05, sy = H / 6.4;
+    return [W / 2 + q * sx, H / 2 - p * sy];
+  }
+
+  function frame() {
+    const flow = css('--flow'), dim = css('--flow-dim');
+    ctx.clearRect(0, 0, W, H);
+    for (const s of particles) {
+      for (let k = 0; k < 2; k++) step(s);
+      s.trail.push(toXY(s.q, s.p));
+      if (s.trail.length > 70) s.trail.shift();
+      const inside = 0.5 * s.p * s.p - Math.cos(s.q) < 1;
+      ctx.strokeStyle = inside ? flow : dim;
+      ctx.lineWidth = inside ? 1.3 : 1;
+      ctx.beginPath();
+      s.trail.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+      ctx.stroke();
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  init();
+  if (reduce) { for (let i = 0; i < 70; i++) particles.forEach(step), frame(); }
+  else requestAnimationFrame(frame);
+  let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(init, 150); });
+})();
+
+/* ---------- reveal on scroll ---------- */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.12 });
+  els.forEach(e => io.observe(e));
+})();
+</script>
+</body>
+</html>
